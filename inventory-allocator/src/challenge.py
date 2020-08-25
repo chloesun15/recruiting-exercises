@@ -62,12 +62,12 @@
 class InventoryAllocator:
 
     # Initialize with order and warehouse
-    def __init__(self, order, warehouse):
+    def __init__(self, order={}, warehouse=[]):
         self.order = order
         self.warehouse = warehouse
+        self.output = {}
 
-    # Getters and Setters: Not necessary in this challenge, but in case we want to change, update, or
-    # view our orders/warehouses in the future
+    # Getters and Setters
     def get_order(self):
         return self.order
 
@@ -136,7 +136,9 @@ class InventoryAllocator:
         # If our order was not completely fulfilled, then return an empty bracket
         for key in order_copy.keys():
             if order_copy[key] != 0:
+                self.output = []
                 return []
 
         # If our order was completely fulfilled, then we return the list of warehouses we allocated from
+        self.output = source
         return source
