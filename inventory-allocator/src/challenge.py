@@ -92,5 +92,5 @@ class InventoryAllocator:
                         else:
                             order_fulfillment[item] = order_amount
                             order_copy[item] = 0
-            source.append({warehouse["name"], order_fulfillment})
+            source.append({warehouse["name"]: order_fulfillment})
         return source
