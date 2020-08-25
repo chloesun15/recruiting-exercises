@@ -59,19 +59,6 @@
 # 1. **Tool/Language mastery**: is the code using up to date syntax and techniques.
 
 
-# For testing purposes
-test_order = {"apple": 5, "banana": 5, "orange": 20}
-test_warehouse = [
-                {
-                    "name": "owd",
-                    "inventory": {"apple": 25, "orange": 10}
-                },
-                {
-                    "name": "dm",
-                    "inventory": {"banana": 5, "orange": 10}
-                }
-            ]
-
 
 class InventoryAllocator:
     def __init__(self, order, warehouse):
@@ -107,9 +94,4 @@ class InventoryAllocator:
                             order_fulfillment["inventory"][item] = order_amount
                             order_copy[item] = 0
             source.append(order_fulfillment)
-        print(source)
         return source
-
-my_inventory = InventoryAllocator(test_order, test_warehouse)
-my_inventory.check_order()
-
