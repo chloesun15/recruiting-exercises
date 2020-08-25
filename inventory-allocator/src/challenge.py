@@ -58,12 +58,16 @@
 # 1. **Test Code Quality**: Is the test code comprehensive and covering all cases.
 # 1. **Tool/Language mastery**: is the code using up to date syntax and techniques.
 
-
+# Create our class
 class InventoryAllocator:
+
+    # Initialize with order and warehouse
     def __init__(self, order, warehouse):
         self.order = order
         self.warehouse = warehouse
 
+    # Getters and Setters: Not necessary in this challenge, but in case we want to change, update, or
+    # view our orders/warehouses
     def get_order(self):
         return self.order
 
@@ -76,26 +80,56 @@ class InventoryAllocator:
     def set_warehouse(self, warehouse):
         self.warehouse = warehouse
 
+    # Our main function that will allocate our inventory
     def check_order(self):
+
+        # Initialize our return list
         source = []
+
+        # Create copy of our order: this is where we will keep track of what we need.
         order_copy = self.order
+
+        # Looping through each warehouse
         for warehouse in self.warehouse:
+
+            # Create object of items to allocate for warehouse
             order_fulfillment = {}
-            for item in self.order.keys():
+
+            # Loop through each item in our order
+            for item in order_copy.keys():
+
+                # If the item we want is in the warehouse
                 if item in warehouse["inventory"].keys():
+
+                    # Variables for the number of items we want and the number of items in warehouse
                     order_amount = order_copy[item]
                     warehouse_amount = warehouse["inventory"][item]
+
+                    # If both are non zero (aka we want something AND there is something to take)
                     if order_amount > 0 and warehouse_amount > 0:
+
+                        # If we want more than we have, then we add all available items to our allocation
                         if order_amount > warehouse_amount:
                             order_fulfillment[item] = warehouse_amount
+
+                            # Update the amount of items we still need in our order
                             order_copy[item] = order_amount - warehouse_amount
+
+                        # If we have more in the warehouse than what we need, take what we need
                         else:
                             order_fulfillment[item] = order_amount
+
+                            # Set the number of items we still need to 0
                             order_copy[item] = 0
+
+            # After we are done going through the warehouse,
+            # we add it to our list along with anything we took from the inventory
             source.append({warehouse["name"]: order_fulfillment})
 
+        # If our order was not completely fulfilled, then return an empty bracket
         for key in order_copy.keys():
             if order_copy[key] != 0:
-                source = []
+                return []
 
+        # If our order was completely fulfilled, then we return the list of warehouses we allocated from
         return source
