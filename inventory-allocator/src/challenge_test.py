@@ -6,6 +6,9 @@ def main():
     exact_unit_test()
     no_allocation_unit_test()
     split_warehouse_unit_test()
+    empty_warehouse_unit_test()
+    zero_item_unit_test()
+    empty_order_unit_test()
 
 
 def test_template(order, warehouse, output, test):
@@ -44,6 +47,30 @@ def split_warehouse_unit_test():
     expected_output = [{"owd": {"apple": 5}}, {"dm": {"apple": 5}}]
 
     test_template(test_order, test_warehouse, expected_output, "Split Warehouse")
+
+
+def empty_warehouse_unit_test():
+    test_order = {"apple": 10}
+    test_warehouse = [{"name": "owd", "inventory": {}}, {"name": "dm", "inventory": {"apple": 10}}]
+    expected_output = [{"dm": {"apple": 10}}]
+
+    test_template(test_order, test_warehouse, expected_output, "Empty Warehouse")
+
+
+def zero_item_unit_test():
+    test_order = {"apple": 10}
+    test_warehouse = [{"name": "owd", "inventory": {"apple": 0}}, {"name": "dm", "inventory": {"apple": 10}}]
+    expected_output = [{"dm": {"apple": 10}}]
+
+    test_template(test_order, test_warehouse, expected_output, "Zero Items")
+
+
+def empty_order_unit_test():
+    test_order = {}
+    test_warehouse = [{"name": "owd", "inventory": {"apple": 0}}, {"name": "dm", "inventory": {"apple": 10}}]
+    expected_output = []
+
+    test_template(test_order, test_warehouse, expected_output, "Empty Order")
 
 
 if __name__ == '__main__':
