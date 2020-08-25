@@ -92,10 +92,8 @@ class InventoryAllocator:
         elif not type(self.warehouse) == list:
             raise Exception("Error: the provided warehouse is not a list.")
 
-        # Initialize our return list
+        # Initialize our return list, create copy of order
         source = []
-
-        # Create copy of our order: this is where we will keep track of what we need.
         order_copy = self.order
 
         # Looping through each warehouse
@@ -107,36 +105,29 @@ class InventoryAllocator:
             # Loop through each item in our order
             for item in order_copy.keys():
 
-                # If the item we want is in the warehouse (dict type check to prevent keys error)
+                # If the item we want is in the warehouse, then get how many items order needs / warehouse has
                 if type(warehouse["inventory"]) == dict and item in warehouse["inventory"].keys():
-
-                    # Variables for the number of items we want and the number of items in warehouse
                     order_amount = order_copy[item]
                     warehouse_amount = warehouse["inventory"][item]
 
-                    # If both are non zero (aka we want something AND there is something to take)
+                    # If the warehouse has what the order needs, we start allocating
                     if order_amount > 0 and warehouse_amount > 0:
 
-                        # If we want more than we have, then we add all available items to our allocation
+                        # If order > warehouse, then we add all available items to our allocation + update order
                         if order_amount > warehouse_amount:
                             order_fulfillment[item] = warehouse_amount
-
-                            # Update the amount of items we still need in our order
                             order_copy[item] = order_amount - warehouse_amount
 
-                        # If we have more in the warehouse than what we need, take what we need
+                        # If warehouse > order, take what we need + update order
                         else:
                             order_fulfillment[item] = order_amount
-
-                            # Set the number of items we still need to 0
                             order_copy[item] = 0
 
-            # After we are done going through the warehouse, if we took anything,
-            # we add it to our list along with anything we took from the inventory
+            # If we took anything, add it to our list
             if order_fulfillment != {}:
                 source.append({warehouse["name"]: order_fulfillment})
 
-        # If our order was not completely fulfilled, then return an empty bracket
+        # If the order was not completely fulfilled, then return an empty bracket
         for key in order_copy.keys():
             if order_copy[key] != 0:
                 self.output = []
