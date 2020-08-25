@@ -59,7 +59,6 @@
 # 1. **Tool/Language mastery**: is the code using up to date syntax and techniques.
 
 
-
 class InventoryAllocator:
     def __init__(self, order, warehouse):
         self.order = order
@@ -81,17 +80,17 @@ class InventoryAllocator:
         source = []
         order_copy = self.order
         for warehouse in self.warehouse:
-            order_fulfillment = {"name": warehouse["name"], "inventory": {}}
+            order_fulfillment = {}
             for item in self.order.keys():
                 if item in warehouse["inventory"].keys():
                     order_amount = order_copy[item]
                     warehouse_amount = warehouse["inventory"][item]
                     if order_amount > 0 and warehouse_amount > 0:
                         if order_amount > warehouse_amount:
-                            order_fulfillment["inventory"][item] = warehouse_amount
+                            order_fulfillment[item] = warehouse_amount
                             order_copy[item] = order_amount - warehouse_amount
                         else:
-                            order_fulfillment["inventory"][item] = order_amount
+                            order_fulfillment[item] = order_amount
                             order_copy[item] = 0
-            source.append(order_fulfillment)
+            source.append({warehouse["name"], order_fulfillment})
         return source
