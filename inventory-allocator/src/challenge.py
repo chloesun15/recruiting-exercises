@@ -60,11 +60,11 @@
 
 
 # For testing purposes
-test_order = {"apple": 5, "banana": 5, "orange": 5}
+test_order = {"apple": 5, "banana": 5, "orange": 20}
 test_warehouse = [
                 {
                     "name": "owd",
-                    "inventory": {"apple": 5, "orange": 10}
+                    "inventory": {"apple": 25, "orange": 10}
                 },
                 {
                     "name": "dm",
@@ -89,3 +89,28 @@ class InventoryAllocator:
 
     def set_warehouse(self, warehouse):
         self.warehouse = warehouse
+
+    def check_order(self):
+        source = []
+        order_copy = self.order
+        for warehouse in self.warehouse:
+            order_fulfillment = {"name": warehouse["name"], "inventory": {}}
+            for item in self.order.keys():
+                if item in warehouse["inventory"].keys():
+                    order_amount = order_copy[item]
+                    warehouse_amount = warehouse["inventory"][item]
+                    print(item, order_amount, warehouse_amount)
+                    if order_amount > 0 and warehouse_amount > 0:
+                        if order_amount > warehouse_amount:
+                            order_fulfillment["inventory"][item] = warehouse_amount
+                            order_copy[item] = order_amount - warehouse_amount
+                        else:
+                            print("more in warehouse")
+                            order_fulfillment["inventory"][item] = order_amount
+                            order_copy[item] = 0
+            print(order_fulfillment)
+
+
+my_inventory = InventoryAllocator(test_order, test_warehouse)
+my_inventory.check_order()
+
