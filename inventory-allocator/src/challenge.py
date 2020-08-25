@@ -74,6 +74,9 @@ class InventoryAllocator:
     def get_warehouse(self):
         return self.warehouse
 
+    def get_output(self):
+        return self.output
+
     def set_order(self, order):
         self.order = order
 
