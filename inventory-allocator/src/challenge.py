@@ -93,4 +93,9 @@ class InventoryAllocator:
                             order_fulfillment[item] = order_amount
                             order_copy[item] = 0
             source.append({warehouse["name"]: order_fulfillment})
+
+        for key in order_copy.keys():
+            if order_copy[key] != 0:
+                source = []
+                
         return source

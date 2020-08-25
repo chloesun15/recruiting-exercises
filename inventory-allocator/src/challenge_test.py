@@ -19,6 +19,5 @@ def exact_unit_test():
     assert output == expected_output
     print("\nExact inventory match test passed.")
 
-
 if __name__ == '__main__':
     main()
