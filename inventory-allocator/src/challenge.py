@@ -83,6 +83,12 @@ class InventoryAllocator:
     # Our main function that will allocate our inventory
     def check_order(self):
 
+        # Type check for order and warehouse inputs
+        if not type(self.order) == dict:
+            raise TypeError("Error: the provided order is not a dictionary.")
+        elif not type(self.warehouse) == list:
+            raise TypeError("Error: the provided warehouse is not a list.")
+
         # Initialize our return list
         source = []
 
