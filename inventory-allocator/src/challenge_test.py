@@ -1,14 +1,16 @@
 from challenge import *
 
-
+# Our main from where we run our tests
 def main():
     print("-- RUNNING UNIT TESTS -- ")
     exact_unit_test()
     no_allocation_unit_test()
     split_warehouse_unit_test()
-    empty_warehouse_unit_test()
+    one_empty_warehouse_unit_test()
+    only_empty_warehouse_unit_test()
     zero_item_unit_test()
     empty_order_unit_test()
+    print("-- ALL UNIT TESTS PASSED --")
 
 
 def test_template(order, warehouse, output, test):
@@ -49,12 +51,20 @@ def split_warehouse_unit_test():
     test_template(test_order, test_warehouse, expected_output, "Split Warehouse")
 
 
-def empty_warehouse_unit_test():
+def one_empty_warehouse_unit_test():
     test_order = {"apple": 10}
     test_warehouse = [{"name": "owd", "inventory": {}}, {"name": "dm", "inventory": {"apple": 10}}]
     expected_output = [{"dm": {"apple": 10}}]
 
-    test_template(test_order, test_warehouse, expected_output, "Empty Warehouse")
+    test_template(test_order, test_warehouse, expected_output, "One Empty Warehouse")
+
+
+def only_empty_warehouse_unit_test():
+    test_order = {"apple": 10}
+    test_warehouse = [{"name": "owd", "inventory": {}}, {"name": "dm", "inventory": {}}]
+    expected_output = []
+
+    test_template(test_order, test_warehouse, expected_output, "All Empty Warehouse")
 
 
 def zero_item_unit_test():
