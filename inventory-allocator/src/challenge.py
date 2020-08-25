@@ -88,9 +88,9 @@ class InventoryAllocator:
 
         # Type check for order and warehouse inputs
         if not type(self.order) == dict:
-            raise Exception("Error: the provided order is not a dictionary.")
+            raise TypeError("Error: the provided order is not a dictionary.")
         elif not type(self.warehouse) == list:
-            raise Exception("Error: the provided warehouse is not a list.")
+            raise TypeError("Error: the provided warehouse is not a list.")
 
         # Initialize our return list, create copy of order
         source = []
