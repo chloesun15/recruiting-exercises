@@ -7,7 +7,7 @@ def main():
 
 
 def exact_unit_test():
-    test_order = {"apple", 1}
+    test_order = {"apple": 1}
     test_warehouse = [{"name": "owd", "inventory": {"apple": 1}}]
 
     test_inventory = InventoryAllocator(test_order, test_warehouse)
