@@ -58,7 +58,7 @@
 # 1. **Test Code Quality**: Is the test code comprehensive and covering all cases.
 # 1. **Tool/Language mastery**: is the code using up to date syntax and techniques.
 
-# Create our class
+
 class InventoryAllocator:
 
     # Initialize with order and warehouse
@@ -67,7 +67,7 @@ class InventoryAllocator:
         self.warehouse = warehouse
 
     # Getters and Setters: Not necessary in this challenge, but in case we want to change, update, or
-    # view our orders/warehouses
+    # view our orders/warehouses in the future
     def get_order(self):
         return self.order
 
@@ -85,9 +85,9 @@ class InventoryAllocator:
 
         # Type check for order and warehouse inputs
         if not type(self.order) == dict:
-            raise TypeError("Error: the provided order is not a dictionary.")
+            raise Exception("Error: the provided order is not a dictionary.")
         elif not type(self.warehouse) == list:
-            raise TypeError("Error: the provided warehouse is not a list.")
+            raise Exception("Error: the provided warehouse is not a list.")
 
         # Initialize our return list
         source = []
