@@ -99,17 +99,16 @@ class InventoryAllocator:
                 if item in warehouse["inventory"].keys():
                     order_amount = order_copy[item]
                     warehouse_amount = warehouse["inventory"][item]
-                    print(item, order_amount, warehouse_amount)
                     if order_amount > 0 and warehouse_amount > 0:
                         if order_amount > warehouse_amount:
                             order_fulfillment["inventory"][item] = warehouse_amount
                             order_copy[item] = order_amount - warehouse_amount
                         else:
-                            print("more in warehouse")
                             order_fulfillment["inventory"][item] = order_amount
                             order_copy[item] = 0
-            print(order_fulfillment)
-
+            source.append(order_fulfillment)
+        print(source)
+        return source
 
 my_inventory = InventoryAllocator(test_order, test_warehouse)
 my_inventory.check_order()
