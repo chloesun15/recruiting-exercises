@@ -122,9 +122,10 @@ class InventoryAllocator:
                             # Set the number of items we still need to 0
                             order_copy[item] = 0
 
-            # After we are done going through the warehouse,
+            # After we are done going through the warehouse, if we took anything,
             # we add it to our list along with anything we took from the inventory
-            source.append({warehouse["name"]: order_fulfillment})
+            if order_fulfillment != {}:
+                source.append({warehouse["name"]: order_fulfillment})
 
         # If our order was not completely fulfilled, then return an empty bracket
         for key in order_copy.keys():
