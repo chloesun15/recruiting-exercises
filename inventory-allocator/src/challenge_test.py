@@ -1,15 +1,29 @@
 from challenge import *
 
-# Our main from where we run our tests
+
 def main():
     print("-- RUNNING UNIT TESTS -- ")
+    # Checks for case where the warehouse has exactly what order needs
     exact_unit_test()
+
+    # Checks for case where warehouse can't fulfill the order
     no_allocation_unit_test()
+
+    # Checks for case where order needs to be split across warehouses
     split_warehouse_unit_test()
+
+    # Checks for when a warehouse is empty
     one_empty_warehouse_unit_test()
+
+    # Checks for when all warehouses are empty
     only_empty_warehouse_unit_test()
+
+    # Checks for one when a warehouse is not empty (i.e. has an item listed) but the value is 0
     zero_item_unit_test()
+
+    # Checks for when the order provided is empty
     empty_order_unit_test()
+
     print("-- ALL UNIT TESTS PASSED --")
 
 
