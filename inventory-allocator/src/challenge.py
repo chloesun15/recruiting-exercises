@@ -104,8 +104,8 @@ class InventoryAllocator:
             # Loop through each item in our order
             for item in order_copy.keys():
 
-                # If the item we want is in the warehouse
-                if item in warehouse["inventory"].keys():
+                # If the item we want is in the warehouse (dict type check to prevent keys error)
+                if type(warehouse["inventory"]) == dict and item in warehouse["inventory"].keys():
 
                     # Variables for the number of items we want and the number of items in warehouse
                     order_amount = order_copy[item]
