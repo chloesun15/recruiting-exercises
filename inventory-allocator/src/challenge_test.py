@@ -27,17 +27,22 @@ def main():
     print("-- ALL UNIT TESTS PASSED --")
 
 
+# Template for running and printing our test results
 def test_template(order, warehouse, output, test):
     print("\n" + test + " test running...")
-    test_order = order
-    test_warehouse = warehouse
-    expected_output = output
 
-    test_inventory = InventoryAllocator(test_order, test_warehouse)
-    output = test_inventory.check_order()
-    print("Expected output: " + str(expected_output))
-    print("Output: " + str(output))
-    assert output == expected_output
+    # Create object with given order and warehouse
+    test_inventory = InventoryAllocator(order, warehouse)
+
+    # Get the cheapest shipment using check_order
+    test_output = test_inventory.check_order()
+
+    # Print our outputs for comparison
+    print("Expected output: " + str(output))
+    print("Output: " + str(test_output))
+
+    # Run our assert to make sure it pasts our test, and if so, print to console.
+    assert test_output == output
     print("" + test + " test passed.")
 
 
@@ -62,7 +67,7 @@ def split_warehouse_unit_test():
     test_warehouse = [{"name": "owd", "inventory": {"apple": 5}}, {"name": "dm", "inventory": {"apple": 5}}]
     expected_output = [{"owd": {"apple": 5}}, {"dm": {"apple": 5}}]
 
-    test_template(test_order, test_warehouse, expected_output, "Split Warehouse")
+    test_template(test_order, test_warehouse, expected_output, "Split warehouse")
 
 
 def one_empty_warehouse_unit_test():
@@ -70,7 +75,7 @@ def one_empty_warehouse_unit_test():
     test_warehouse = [{"name": "owd", "inventory": {}}, {"name": "dm", "inventory": {"apple": 10}}]
     expected_output = [{"dm": {"apple": 10}}]
 
-    test_template(test_order, test_warehouse, expected_output, "One Empty Warehouse")
+    test_template(test_order, test_warehouse, expected_output, "One empty warehouse")
 
 
 def only_empty_warehouse_unit_test():
@@ -78,7 +83,7 @@ def only_empty_warehouse_unit_test():
     test_warehouse = [{"name": "owd", "inventory": {}}, {"name": "dm", "inventory": {}}]
     expected_output = []
 
-    test_template(test_order, test_warehouse, expected_output, "All Empty Warehouse")
+    test_template(test_order, test_warehouse, expected_output, "Only empty warehouses")
 
 
 def zero_item_unit_test():
@@ -86,7 +91,7 @@ def zero_item_unit_test():
     test_warehouse = [{"name": "owd", "inventory": {"apple": 0}}, {"name": "dm", "inventory": {"apple": 10}}]
     expected_output = [{"dm": {"apple": 10}}]
 
-    test_template(test_order, test_warehouse, expected_output, "Zero Items")
+    test_template(test_order, test_warehouse, expected_output, "Zero items")
 
 
 def empty_order_unit_test():
@@ -94,7 +99,7 @@ def empty_order_unit_test():
     test_warehouse = [{"name": "owd", "inventory": {"apple": 0}}, {"name": "dm", "inventory": {"apple": 10}}]
     expected_output = []
 
-    test_template(test_order, test_warehouse, expected_output, "Empty Order")
+    test_template(test_order, test_warehouse, expected_output, "Empty order")
 
 
 if __name__ == '__main__':
