@@ -97,5 +97,5 @@ class InventoryAllocator:
         for key in order_copy.keys():
             if order_copy[key] != 0:
                 source = []
-                
+
         return source
