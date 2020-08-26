@@ -1,4 +1,4 @@
-from challenge import *
+from inventory_allocator import *
 import unittest
 
 
@@ -56,7 +56,7 @@ class InventoryAllocatorTest(unittest.TestCase):
         self.allocator.check_order()
         self.assertEqual(self.allocator.output, [])
 
-    def test_wrong_type(self):
+    def test_wrong_input_type(self):
         self.allocator.set_order("")
         self.allocator.set_warehouse([])
         self.assertRaises(TypeError, self.allocator.check_order)
